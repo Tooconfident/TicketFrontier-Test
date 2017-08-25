@@ -7,11 +7,13 @@ response = open('http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.
 doc = Nokogiri::HTML(response)
 
 # rows = []
-# months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 doc.xpath('//table/tr').each do |tr|
 		td1, td2 = tr.xpath('./td')
-		puts td1
+		if months.any? { |month| td2.content.include?(month) }
+			puts td1
+		end
 	end
 
 
