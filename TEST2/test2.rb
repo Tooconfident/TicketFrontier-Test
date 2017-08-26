@@ -1,6 +1,7 @@
 # http://ruby-doc.org/stdlib-2.0.0/libdoc/open-uri/rdoc/OpenURI.html 
 require 'open-uri'
 require 'nokogiri'
+require 'uri'
 
 # Go fetch the contents of a URL & store them as a String
 response = open('http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html')
@@ -11,16 +12,13 @@ months = ["January", "February", "March", "April", "May", "June", "July", "Augus
 
 
 doc.xpath('//table/tr').each do |tr|
-		td1, description = tr.xpath('./td')
-		links = td1.xpath('./a').map {|link| link['href']}
-		#https://stackoverflow.com/questions/10215590/check-if-string-contains-any-substring-in-an-array-in-ruby
-
-		if months.any? { |month| description.content.include?(month) } 
-			table_name = td1.content.split(/[[:space:]]/).join
-			rows= {table_name => links}
-			p rows
-		end
-	end
+	td1, description = tr.xpath('./td')
+	if months.any? { |month| description.content.include?(month) }
+#refactored for better hash output thanks to https://stackoverflow.com/questions/9336039/get-link-and-href-text-from-html-doc-with-nokogiri-ruby
+		rows = Hash[td1.xpath('./a').map {|link| [link.text.strip, link["href"]]}]
+		p rows
+	end		
+end
 
 
 # puts rows
