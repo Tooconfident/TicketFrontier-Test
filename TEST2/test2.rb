@@ -15,7 +15,7 @@ doc.xpath('//table/tr').each do |tr|
 	td1, description = tr.xpath('./td')
 	if months.any? { |month| description.content.include?(month) }
 #refactored for better hash output thanks to https://stackoverflow.com/questions/9336039/get-link-and-href-text-from-html-doc-with-nokogiri-ruby
-		rows = Hash[td1.xpath('./a').map {|link| [link.text.strip, link["href"]]}]
+		rows = Hash[td1.xpath('./a').map {|link| [link.text.gsub(/[[:space:]]+/, ""), link["href"]]}]
 		p rows
 	end		
 end
