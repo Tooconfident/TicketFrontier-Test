@@ -7,8 +7,8 @@ require 'uri'
 response = open('http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html')
 doc = Nokogiri::HTML(response)
 
-rows = {}
-months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+# rows = {}
+months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "]
 
 
 doc.xpath('//table/tr').each do |tr|
