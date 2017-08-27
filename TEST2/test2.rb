@@ -10,15 +10,18 @@ doc = Nokogiri::HTML(response)
 # rows = {}
 months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "]
 
-
+def absolute_url(href)
+	page_url = 'http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html'
+	absolute_uri = URI.join( page_url, href).to_s
+	# puts absolute_uri
+end
 doc.xpath('//table/tr').each do |tr|
 	td1, description = tr.xpath('./td')
 	if months.any? { |month| description.content.include?(month) }
 #refactored for better hash output thanks to https://stackoverflow.com/questions/9336039/get-link-and-href-text-from-html-doc-with-nokogiri-ruby
 		rows = {}
 		td1.xpath('./a').map do |link| 
-			# [link.text.gsub(/[[:space:]]+/, ""), File.expand_path(link["href"])]
-			rows[link.text.strip] = link['href']
+			rows[link.text.strip] = absolute_url(link['href'])
 		end
 		# puts rows
 		# p link["href"]
@@ -28,11 +31,7 @@ doc.xpath('//table/tr').each do |tr|
 	end		
 end
 
-def absolute_url(href)
-	page_url = 'http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html'
-	absolute_uri = URI.join( page_url, href).to_s
-	# puts absolute_uri
-end
+
 
 # absolute_url("Andrews/T60.1")
 # puts rows
