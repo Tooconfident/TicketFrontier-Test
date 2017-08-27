@@ -25,11 +25,11 @@ doc.xpath('//table/tr').each do |tr|
 			url = absolute_url(link['href'])
 			rows[name] = url
 		end
-		command, *the_rest = ARGV
+		command, *the_rest = ARGV #ARGV is an array created by ruby from command line arguments
 		if rows.key?(command)
-			puts "ARGV works!"
+			download = open(rows[command])
+			IO.copy_stream(download, "output.dat") #https://ruby-doc.org/core-1.9.2/IO.html
 		elsif !command
-			
 			rows.each do |key, value|
 				puts "#{key}	#{value}"
 			end
