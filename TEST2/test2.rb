@@ -25,14 +25,20 @@ doc.xpath('//table/tr').each do |tr|
 			url = absolute_url(link['href'])
 			rows[name] = url
 		end
-		rows.each do |key, value|
-			puts "#{key}	#{value}"
+		command, *the_rest = ARGV
+		if rows.key?(command)
+			puts "ARGV works!"
+		elsif !command
+			
+			rows.each do |key, value|
+				puts "#{key}	#{value}"
+			end
 		end
 	end		
 end
 
 
-# command, *the_rest = ARGV
+
 # element = doc.xpath('//table/tr/td/a')
 # name = element.text.gsub(/[[:space:]]+/, "")
 # link = absolute_url(element['href'])
