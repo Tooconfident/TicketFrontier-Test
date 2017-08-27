@@ -22,7 +22,13 @@ doc.xpath('//table/tr').each do |tr|
 	end		
 end
 
+def absolute_url(href)
+	page_url = 'http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html'
+	absolute_uri = URI.join( page_url, href).to_s
+	puts absolute_uri
+end
 
+absolute_url("Andrews/T60.1")
 # puts rows
 
 #spent a long time trying to figure out how to remove html entity &nbsp; correctly. I went down a long rabbit hole that gave me 3 different options and none really worked for my solution so I just removed all whitespace for now
