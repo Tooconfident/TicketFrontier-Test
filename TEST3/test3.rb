@@ -1,19 +1,5 @@
 require 'date'
 
-def process(document)
-	result = []
-	file = document
-	columns = []
-	File.readlines(file).each do |line|
-		records = line.split(' ')		
-		year = records[6]
-		columns << year
-	end
-	p columns
-end
-
-process("T08 (1).1")
-
 class Record
   # Looking at the people.csv file,
   # what attributes should a Person object have?
@@ -30,4 +16,16 @@ class Record
     @total_deaths = args[:total_deaths]
     @wounded = args[:wounded]
   end
+
+  def process(file)
+	columns = []
+	File.readlines(file).each do |row|
+		row[:year] = 	
+		columns << @year
+	end
+	p columns
+  end
 end
+
+test = Record.new
+test.process("T08 (1).1")
