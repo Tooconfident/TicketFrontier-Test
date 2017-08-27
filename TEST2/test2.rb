@@ -2,7 +2,6 @@
 require 'open-uri'
 require 'nokogiri'
 require 'uri'
-require 'optparse'
 
 # Go fetch the contents of a URL & store them as a String
 response = open('http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html')
@@ -25,10 +24,11 @@ doc.xpath('//table/tr').each do |tr|
 			url = absolute_url(link['href'])
 			rows[name] = url
 		end
+		
 		command, *the_rest = ARGV #ARGV is an array created by ruby from command line arguments
 		if rows.key?(command)
 			download = open(rows[command])
-			IO.copy_stream(download, "output.dat") #https://ruby-doc.org/core-1.9.2/IO.html
+			IO.copy_stream(download, "output.dat") #https://ruby-doc.org/core-1.9.2/IO.html, with matching command line argument, program will create output.dat and transfer table data automatically
 		elsif !command
 			rows.each do |key, value|
 				puts "#{key}	#{value}"
@@ -37,22 +37,4 @@ doc.xpath('//table/tr').each do |tr|
 	end		
 end
 
-
-
-# element = doc.xpath('//table/tr/td/a')
-# name = element.text.gsub(/[[:space:]]+/, "")
-# link = absolute_url(element['href'])
-# p element
-# p name
-# p link
-# p file['href']
-# if command == file
-# 	download = open(file['href'])
-# end
-
-
-# puts the_rest
-# absolute_url("Andrews/T60.1")
-# puts rows
-
-#spent a long time trying to figure out how to remove html entity &nbsp; correctly. I went down a long rabbit hole that gave me 3 different options and none really worked for my solution so I just removed all whitespace for now. The normalize method seems like a solid direction to go, so I will play with that more after getting other parts of the challenge to work.
+#spent a long time trying to figure out how to remove html entity &nbsp; correctly and converting it to whitespace. I went down a long rabbit hole that gave me 3 different options and none really worked for my solution so I just removed all whitespace for now. The normalize method seems like a solid direction to go, so I will play with that more after getting other parts of the challenge to work.
