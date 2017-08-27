@@ -7,6 +7,7 @@ require 'uri'
 response = open('http://www2.stat.duke.edu/courses/Spring01/sta114/data/andrews.html')
 doc = Nokogiri::HTML(response)
 
+# will return to this to come up with a better solution than this hacky array with spaced strings. Regex will probably be the direction to make this better
 months = ["January ", "February ", "March ", "April ", "May ", "June ", "July ", "August ", "September ", "October ", "November ", "December "]
 
 def absolute_url(href)
@@ -24,7 +25,7 @@ doc.xpath('//table/tr').each do |tr|
 			url = absolute_url(link['href'])
 			rows[name] = url
 		end
-		
+
 		command, *the_rest = ARGV #ARGV is an array created by ruby from command line arguments
 		if rows.key?(command)
 			download = open(rows[command])
