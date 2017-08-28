@@ -21,7 +21,7 @@ class Record
    array = []
 	 File.open(file) do |f|
 		  f.each_line do |line|
-        p array << line.split
+        array << line.split
       end
       by_year(array)
       
@@ -30,10 +30,15 @@ class Record
 
 
   def by_year(row)
-    row.map do |inner|
-      p inner[6]
+    row.each do |inner|
+      p year = inner[6].to_i
+      # total_accidents = # how many records that year, how many times we see year
+      #wounded = # sum of inner[9].to_i divided by total_accidents
+      #average_killed = #inner[8].to_i divided by total_accidents
+      #total_killed = #highest value of inner[8].to_i
     end
   end
+
 
 end
 
