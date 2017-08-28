@@ -21,19 +21,20 @@ class Record
    array = []
 	 File.open(file) do |f|
 		  f.each_line do |line|
-        array << line.split.map(&:to_i)
+        p array << line.split
       end
-      array.map do |inner|
-        p inner[6]
-      end
+      by_year(array)
       
 	 end
   end
 
 
-  def by_year
-
+  def by_year(row)
+    row.map do |inner|
+      p inner[6]
+    end
   end
+
 end
 
 
