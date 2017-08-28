@@ -30,15 +30,25 @@ class Record
 
 
   def by_year(row)
+    counts = Hash.new(0)
     row.each do |inner|
-      p year = inner[6].to_i
-      # total_accidents = # how many records that year, how many times we see year
+      year = inner[6]
+      counts[year] += 1
+      
+      # inner.each do |element| 
+      #   counts[element] += 1 
+      #if #year is a repeat
+        #count += 1
+        #total_accidents = count
+      # end
+      # p counts
+      # total_accidents = # how many records that year, how many times we see the same year
       #wounded = # sum of inner[9].to_i divided by total_accidents
       #average_killed = #inner[8].to_i divided by total_accidents
       #total_killed = #highest value of inner[8].to_i
     end
+    p counts
   end
-
 
 end
 
