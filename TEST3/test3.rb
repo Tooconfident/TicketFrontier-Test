@@ -30,42 +30,24 @@ class Record
   def by_year(data)
     years_on_record = []
       data.each do |accident|
-        # p accident
         if years_on_record.any? {|year| year[:year] == accident[6]}
-          p years_on_record
-          # add_year_record = years_on_record.find { |h| p h["accidents"] == accident[6]}
-          # add_year_record['accidents'] = add_year_record['accidents'] + 1
-          # total_wounded = years_on_record.find { |h| h["total_wounded"] }
-          # average_wounded = years_on_record.find { |h| h["average_wounded"] }
-          # average_killed = years_on_record.find { |h| h["average_killed"] }
-              
-            # p year.update(year) do |key, oldval, newval |
-              # year[key] = year["accidents"] + 1
-              # year["total_wounded"] = accident[9]
-              # year["total_killed"] += accident[7]
-              # year["average_wounded"] = year["total_wounded"] / year["accidents"]
-              # year["average_killed"] = year["total_killed"] / year["accidents"]
-              # newval
-            
-
-          # desired_index = years_on_record.index { |year| year[:year] == accident[6]}
-          # years_on_record[desired_index]["accidents"] = years_on_record[desired_index]["accidents"] + 1
-          # years_on_record[desired_index]["total_wounded"] = accident[9]
-          # years_on_record[desired_index]["total_killed"] += accident[7]
-          # years_on_record[desired_index]["average_wounded"] = years_on_record[desired_index]["total_wounded"] / years_on_record[desired_index]["accidents"]
-          # years_on_record[desired_index]["average_killed"] = years_on_record[desired_index]["total_killed"] / years_on_record[desired_index]["accidents"]
+          desired_index = years_on_record.index { |year| year[:year] == accident[6]}
+          years_on_record[desired_index][:accidents] = years_on_record[desired_index][:accidents] + 1
+          years_on_record[desired_index][:total_wounded] += accident[9].to_i
+          years_on_record[desired_index][:total_killed] = accident[7].to_i
+          years_on_record[desired_index][:average_wounded] = years_on_record[desired_index][:total_wounded].to_f / years_on_record[desired_index][:accidents].to_f
+          years_on_record[desired_index][:average_killed] = years_on_record[desired_index][:total_killed].to_f / years_on_record[desired_index][:accidents].to_f
         else
           years_on_record << { :year => accident[6], 
                         :accidents => 1, 
                         :total_wounded => accident[9].to_i, 
                         :total_killed => accident[7].to_i, 
-                        :average_wounded => accident[9].to_i, 
-                        :average_killed => accident[7].to_i 
+                        :average_wounded => accident[9].to_f, 
+                        :average_killed => accident[7].to_f 
                       }
-          # p years_on_record[0][:year]
         end
-        # p years_on_record
       end
+      p years_on_record
   end
 
 end
