@@ -1,5 +1,5 @@
 require 'date'
-require 'matrix'
+require 'terminal-table'
 
 class Record
   attr_reader :table_number, :sub_table, :record_number, :day_of_week, :day_of_month, :month, :year, :total_deaths, :wounded
@@ -22,8 +22,8 @@ class Record
 		  f.each_line do |line|
         my_data << line.split
       end
-      by_year(my_data)
     end
+    by_year(my_data)
   end
 
 
@@ -47,7 +47,20 @@ class Record
                       }
         end
       end
-      p years_on_record
+      display_by_year(years_on_record)
+  end
+
+
+  def display_by_year(array)
+    array.each do |year| 
+        puts "--------------BY YEAR-------------- \n
+              #{year[:year]}\n
+      Total Accidents: #{year[:accidents]}\n
+      Average Wounded: #{year[:average_wounded]}\n
+      Total Wounded: #{year[:total_wounded]}\n
+      Average Killed: #{year[:average_killed]}\n
+      Total Killed: #{year[:total_killed]}\n"
+    end
   end
 
 end
@@ -55,27 +68,3 @@ end
 
 test = Record.new
 test.process("T08.1")
-
-#smashing
-#build hash, in hash yuo would have hash of hashes
-#each hash would have parameter would be year
-#next #wonded
-
-# myYears = []
-
-# For each row in my_data
-#   if my_years
-#       if year.year == row.year
-#         year.accidents += 1
-#         year.total_wounded += row.killed
-#         year.total_killed += row.total_killed
-#         year.average_wounded = year.total_wounded / year
-#         year.average_killed = year.total_killed / year.accidents
-#else
-
-# myYears.any? {|year| year[:year] == 'blah'}
-# myYears.any? {|year| year[:year] == '1851'}
-
-# myYears = []
-
-
