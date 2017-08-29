@@ -83,8 +83,10 @@ class Record
   end
 
   def display_by_weekday(array)
-    # sort_by_sunday = array.sort_by {|k, v| v}.reverse
-    array.each do |day| 
+    # https://stackoverflow.com/questions/40121932/ruby-sort-array-of-hashes-values-string-based-on-array-order
+    days_array = Date::ABBR_DAYNAMES
+    sort_by_sunday = array.sort{|a, b| days_array.index(a[:day]) <=> days_array.index(b[:day])}
+    sort_by_sunday.each do |day| 
       puts "----------BY WEEKDAY----------\n
               #{day[:day]}\n
       Total Accidents: #{day[:accidents]}\n
