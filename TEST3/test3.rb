@@ -24,6 +24,7 @@ class Record
       end
     end
     by_year(my_data)
+    by_weekday(my_data)
   end
 
 
@@ -60,6 +61,35 @@ class Record
       Total Wounded: #{year[:total_wounded]}\n
       Average Killed: #{year[:average_killed]}\n
       Total Killed: #{year[:total_killed]}\n"
+    end
+  end
+
+  def by_weekday(data)
+    weekday_on_record = []
+      data.each do |accident|
+        if weekday_on_record.any? {|day| day[:day] == accident[3]}
+          desired_index = weekday_on_record.index { |day| day[:day] == accident[3]}
+          weekday_on_record[desired_index][:accidents] = weekday_on_record[desired_index][:accidents] + 1
+          weekday_on_record[desired_index][:total_wounded] += accident[9].to_i
+          weekday_on_record[desired_index][:total_killed] = accident[7].to_i
+        else
+          weekday_on_record << { :day => accident[3], 
+                        :accidents => 1, 
+                        :total_wounded => accident[9].to_i, 
+                        :total_killed => accident[7].to_i, 
+                      }
+        end
+      end
+      display_by_weekday(weekday_on_record)
+  end
+
+  def display_by_weekday(array)
+    array.each do |day| 
+        puts "----------BY WEEKDAY----------\n
+              #{day[:day]}\n
+      Total Accidents: #{day[:accidents]}\n
+      Total Wounded: #{day[:total_wounded]}\n
+      Total Killed: #{day[:total_killed]}\n\n"
     end
   end
 
