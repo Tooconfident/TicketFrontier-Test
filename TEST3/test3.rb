@@ -1,5 +1,4 @@
 require 'date'
-require 'terminal-table'
 
 class Record
   attr_reader :table_number, :sub_table, :record_number, :day_of_week, :day_of_month, :month, :year, :total_deaths, :wounded
@@ -54,13 +53,13 @@ class Record
 
   def display_by_year(array)
     array.each do |year| 
-        puts "--------------BY YEAR-------------- \n
+      puts "--------------BY YEAR--------------\n
               #{year[:year]}\n
       Total Accidents: #{year[:accidents]}\n
       Average Wounded: #{year[:average_wounded]}\n
       Total Wounded: #{year[:total_wounded]}\n
       Average Killed: #{year[:average_killed]}\n
-      Total Killed: #{year[:total_killed]}\n"
+      Total Killed: #{year[:total_killed]}\n\n"
     end
   end
 
@@ -84,8 +83,9 @@ class Record
   end
 
   def display_by_weekday(array)
+    # sort_by_sunday = array.sort_by {|k, v| v}.reverse
     array.each do |day| 
-        puts "----------BY WEEKDAY----------\n
+      puts "----------BY WEEKDAY----------\n
               #{day[:day]}\n
       Total Accidents: #{day[:accidents]}\n
       Total Wounded: #{day[:total_wounded]}\n
